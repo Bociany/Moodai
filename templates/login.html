@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <title>Moodai - Zaloguj Się</title>
+        <link rel="stylesheet" href="/assets/styles.css" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="Aplikacja webowa, ktora zmierzy twoje samopoczucie." />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+        <meta name="keywords" content="" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="apple-mobile-web-app-title" content="Moodai" />
+        <meta name="msapplication-TileColor" content="#3372DF" />
+        <link rel="shortcut icon" href="images/favicon.png" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" />
+    </head>
+    <body>
+        <div class="hero">
+            <div class="form-box">
+            	<div class="logo">
+                    <img src="/assets/logoo.svg" />
+                </div>
+                <div class="button-box">
+                    <div id="btn"></div>
+                    <button id="loginswitch" type="button" class="toggle-btn" onclick="login()">Zaloguj</button>
+                    <button id="registerswitch" type="button" class="toggle-btn" onclick="register()">Rejestruj</button>
+                </div>
+                <form id="login" class="input-group">
+                    <input type="text" name="email" class="input-field" placeholder="Twój e-mail" required />
+                    <input type="password" name="password" class="input-field" placeholder="Hasło" required />
+                    <input type="checkbox" name="persist" class="check-box" /><span>Zapamietaj haslo</span>
+                    <button type="button" class="submit-btn" onclick="doLoginAsync()"><b>Zaloguj się</b></button>
+                </form>
+                <form id="register" class="input-group">
+                    <input type="text" name="fullname" class="input-field" placeholder="Imię i Nazwisko" required />
+                    <input type="email" name="email" class="input-field" placeholder="Twój e-mail" required />
+                    <input type="password" name="password" class="input-field" placeholder="Hasło" required />
+                    <input type="checkbox" id="akceptuj" name="persist" class="check-box" /><span>Akcetpuje Regulamin</span>
+                    <button type="button" class="submit-btn" onclick="doRegisterAsync()"><b>Zarejestruj się</b></button>
+                </form>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+	    window.localStorage.removeItem("token")
+	    window.sessionStorage.removeItem("token")
+
+            var x = document.getElementById("login");
+            var y = document.getElementById("register");
+            var z = document.getElementById("btn");
+
+            function register() {
+                x.style.left = "-400px";
+                y.style.left = "50px";
+                z.style.left = "110px";
+
+                document.getElementById("registerswitch").style.color = "white";
+                document.getElementById("loginswitch").style.color = "black";
+            }
+            function login() {
+                x.style.left = "50px";
+                y.style.left = "450px";
+                z.style.left = "0px";
+
+                document.getElementById("registerswitch").style.color = "black";
+                document.getElementById("loginswitch").style.color = "white";
+            }
+
+            function checkErrorAndSetToken(shouldPersist, data) {
+                if (data.state != "ok") {
+                    alert(data.message)
+                } else {
+                    if (shouldPersist) {
+                        window.localStorage.setItem("token", data.token);
+                    } else {
+                        window.sessionStorage.setItem("token", data.token);
+                    }
+                    window.location.replace("/");
+                }
+            }
+
+            function doLoginAsync() {
+            	var form = document.getElementById("login");
+            	var formData = new FormData(form);
+            	form.reportValidity();
+
+            	fetch ('/api/login', {
+                	method: 'POST',
+                	headers: {
+                	        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                	},
+                	body: new URLSearchParams({'email': formData.get("email"), 'password': formData.get("password")})
+        		}).then(response => response.json())
+          		  .then(data => checkErrorAndSetToken(formData.get("persist"), data));
+            }
+
+            function doRegisterAsync() {
+            	var form = document.getElementById("register");
+            	var formData = new FormData(form);
+            	form.reportValidity();
+
+		if (!formData.get("persist"))
+		{
+			return;
+		}
+
+            	fetch ('/api/register', {
+                	method: 'POST',
+                	headers: {
+                	        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                	},
+                	body: new URLSearchParams({'fullname': formData.get("fullname"), 'email': formData.get("email"), 'password': formData.get("password")})
+        		}).then(response => response.json())
+          		  .then(data => checkErrorAndSetToken(formData.get("persist"), data));
+            }
+        </script>
+    </body>
+</html>
