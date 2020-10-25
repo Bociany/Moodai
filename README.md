@@ -6,8 +6,8 @@ Podaj skład drużyny:
 - Aleksander Brzykcy: Front-end, Design, Grafika
 - Dawid Mularczyk: Front-end, Design
 - Mateusz Łoziński: Front-end, Design, Grafika
-- Michał Kukiełka: Design, Grafika
-
+- Michał Kukiełka: Grafika
+ 
 # Na jakie potrzeby/problem odpowiada Wasze rozwiązanie: 
 Na problem zabieganego użytkownika, który w dzisiejszych realiach zaniedbuje swój stan zdrowia psychicznego, na bieżąco informując go o jego postępach.
 
