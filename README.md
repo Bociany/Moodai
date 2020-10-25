@@ -1,7 +1,5 @@
 # Moodai
-Nazwa projektu: Moodai
 
-Nazwa drużyny: Bociany
 
 Podaj skład drużyny:
 - Kacper Staroń: AI, Back-end, Front-end, Połączenie z bazą danych, Połączenie front-endu i back-endu
@@ -12,9 +10,6 @@ Podaj skład drużyny:
 
 Nazwa szkoły: 1 Liceum Ogólnokształcące im. ONZ w Biłgoraju
 
-Link do pracy: https://cards.nanoshinono.me
-
-Link do kodu: https://github.com/Bociany/Moodai
 
 Na jakie potrzeby/problem odpowiada Wasze rozwiązanie: Na problem zabieganego użytkownika, który w dzisiejszych realiach zaniedbuje swój stan zdrowia psychicznego, na bieżąco informując go o jego postępach.
 
@@ -32,6 +27,3 @@ Dlaczego akurat Wy powinniście wygrać: Ze względu, iż z biegiem lat współc
 
 Osoba do kontaktu: Dawid Mularczyk
 
-Email: dawid.mularczyk@onet.pl
-
-Telefon: 883 067 466
